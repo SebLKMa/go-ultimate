@@ -28,21 +28,21 @@ func main() {
 	// pooling()
 
 	// Advanced patterns
-	// 		fanOutSem()
-	// 		boundedWorkPooling()
-	// 		drop()
+	//		fanOutSem()
+	//		boundedWorkPooling()
+	//		drop()
 
 	// Cancellation Pattern
-	// 		cancellation()
+	//	cancellation()
 
 	// Retry Pattern
-	// 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	// 		defer cancel()
-	// 		retryTimeout(ctx, time.Second, func(ctx context.Context) error { return errors.New("always fail") })
+	//		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	//		defer cancel()
+	//		retryTimeout(ctx, 2*time.Second, func(ctx context.Context) error { return errors.New("simulated failure") })
 
 	// Channel Cancellation
-	// 		stop := make(chan struct{})
-	// 		channelCancellation(stop)
+	//		stop := make(chan struct{})
+	//		channelCancellation(stop)
 }
 
 // waitForResult: In this pattern, the parent goroutine waits for the child
@@ -143,6 +143,8 @@ func fanOutSem() {
 	g := runtime.GOMAXPROCS(0)
 	sem := make(chan bool, g)
 
+	fmt.Printf("fanOutSem cores: %d\n", g)
+
 	for c := 0; c < children; c++ {
 		go func(child int) {
 			sem <- true
@@ -173,11 +175,13 @@ func fanOutSem() {
 // then the channel is closed, the channel is flushed, and the child
 // goroutines terminate.
 func boundedWorkPooling() {
-	work := []string{"paper", "paper", "paper", "paper", 2000: "paper"}
+	work := []string{"paper1", "paper2", "paper3", "paper4", 2000: "paper5"}
 
 	g := runtime.GOMAXPROCS(0)
 	var wg sync.WaitGroup
 	wg.Add(g)
+
+	fmt.Printf("boundedWorkPooling cores: %d\n", g)
 
 	ch := make(chan string, g)
 
@@ -185,7 +189,9 @@ func boundedWorkPooling() {
 		go func(child int) {
 			defer wg.Done()
 			for wrk := range ch {
-				fmt.Printf("child %d : recv'd signal : %s\n", child, wrk)
+				if wrk != "" {
+					fmt.Printf("child %d : recv'd signal : %s\n", child, wrk)
+				}
 			}
 			fmt.Printf("child %d : recv'd shutdown signal\n", child)
 		}(c)
@@ -263,12 +269,14 @@ func cancellation() {
 // but it may take time before this is true. You set a retry interval to create
 // a delay before you retry the call and you use the context to set a timeout.
 func retryTimeout(ctx context.Context, retryInterval time.Duration, check func(ctx context.Context) error) {
-
+	t := time.NewTimer(retryInterval)
 	for {
 		fmt.Println("perform user check call")
 		if err := check(ctx); err == nil {
 			fmt.Println("work finished successfully")
 			return
+		} else {
+			fmt.Println(err)
 		}
 
 		fmt.Println("check if timeout has expired")
@@ -278,11 +286,12 @@ func retryTimeout(ctx context.Context, retryInterval time.Duration, check func(c
 		}
 
 		fmt.Printf("wait %s before trying again\n", retryInterval)
-		t := time.NewTimer(retryInterval)
+		//t := time.NewTimer(retryInterval)
+		t.Reset(retryInterval)
 
 		select {
 		case <-ctx.Done():
-			fmt.Println("timed expired 2 :", ctx.Err())
+			fmt.Println("timed expired 2 (from caller ctx) :", ctx.Err())
 			t.Stop()
 			return
 		case <-t.C:
