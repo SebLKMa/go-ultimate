@@ -1,17 +1,37 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func swap(src string, idxFrom int, idxTo int) (dst string) {
-	src[idxFrom] = src[idxTo]
+// swaps data[idxFrom] with data[idxTo]
+/* Example:
+str := "hola"
+bstr := []byte(str)
+swap(&bstr, 2, 1)
+str2 := string(bstr)
+*/
+func swap(data *[]byte, idxFrom int, idxTo int) {
+	keep := (*data)[idxFrom]
+	(*data)[idxFrom] = (*data)[idxTo]
+	(*data)[idxTo] = keep
 	return
 }
 
-func main() {
-	str := "hola"
+func reverse(src string) (dst string) {
+	bsrc := []byte(src)
+	max := len(bsrc)
+	mid := max / 2
+	for i := 0; i < mid; i++ {
+		swap(&bsrc, i, max-i-1)
+	}
+	return string(bsrc)
+}
 
-	fmt.Println(string(str[1]))
-	fmt.Println(string(str[2]))
-	fmt.Printf("%c\n", str[1])
-	fmt.Printf("%c\n", str[2])
+func main() {
+	//str := "123456"
+	str := "ahola"
+	fmt.Println(str)
+	str2 := reverse(str)
+	fmt.Println(str2)
 }
