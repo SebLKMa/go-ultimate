@@ -107,6 +107,7 @@ func main() {
 	ll2.Print()
 	ll2.Delete(3)
 	ll2.Print()
-	//ll2.ToCircular()
-	//ll2.PrintCircular()
+
+	ll2.ToCircular()
+	ll2.PrintCircular()
 }
