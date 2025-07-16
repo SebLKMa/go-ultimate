@@ -74,4 +74,6 @@ func main() {
 	fmt.Printf("%s len:%d\n", str3, len(str3))
 	str4 := removeDups(str3)
 	fmt.Printf("%s len:%d\n", str4, len(str4))
+	str5 := removeDups(str4)
+	fmt.Printf("%s len:%d\n", str5, len(str5))
 }
