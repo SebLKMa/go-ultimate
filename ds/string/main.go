@@ -15,7 +15,6 @@ func swap(data *[]byte, idxFrom int, idxTo int) {
 	keep := (*data)[idxFrom]
 	(*data)[idxFrom] = (*data)[idxTo]
 	(*data)[idxTo] = keep
-	return
 }
 
 func reverse(src string) (dst string) {
