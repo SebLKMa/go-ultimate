@@ -1,8 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
-func bsearch(sortedArray []int, toSearch int) bool {
+func bsearch(arr []int, toSearch int) bool {
+	sortedArray := arr
+	slices.Sort(sortedArray)
 	found := false
 	low := 0
 	high := len(sortedArray) - 1
@@ -23,7 +28,7 @@ func bsearch(sortedArray []int, toSearch int) bool {
 }
 
 func main() {
-	array := []int{1, 3, 4, 5}
+	array := []int{3, 1, 5, 4}
 	to_search1 := 3
 	if !bsearch(array, to_search1) {
 		fmt.Println("expected true, got false")
