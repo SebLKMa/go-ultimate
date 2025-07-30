@@ -49,12 +49,12 @@ func removeDups(src string) string {
 	}
 
 	// If duplicates have been removed, remove the remaining "residue"
-	/*
-		fmt.Printf("%d\n", stopper)
-		for runnerIndex := stopper; runnerIndex < max; runnerIndex++ {
-			(*rsrc)[runnerIndex] = 0
-		}
-		fmt.Printf("%d\n", len(*rsrc))
+	/* slower option
+	fmt.Printf("%d\n", stopper)
+	for runnerIndex := stopper; runnerIndex < max; runnerIndex++ {
+		(*rsrc)[runnerIndex] = 0
+	}
+	fmt.Printf("%d\n", len(*rsrc))
 	*/
 	if stopper != max {
 		return string(rsrc)[:stopper]
@@ -75,5 +75,5 @@ func main() {
 	str4 := removeDups(str3)
 	fmt.Printf("%s len:%d\n", str4, len(str4))
 	str5 := removeDups(str4)
-	fmt.Printf("%s len:%d\n", str5, len(str5))
+	fmt.Printf("%s len:%d verified\n", str5, len(str5))
 }
