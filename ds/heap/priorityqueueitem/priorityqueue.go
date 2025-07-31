@@ -1,4 +1,4 @@
-package priorityqueue
+package priorityqueueitem
 
 import "container/heap"
 
