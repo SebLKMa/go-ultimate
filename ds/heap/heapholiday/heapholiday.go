@@ -53,5 +53,11 @@ func main() {
 	heap.Push(holidays, Holiday{name: "Labour Day", date: time.Date(2023, time.May, 1, 0, 0, 0, 0, time.Local)})
 	heap.Push(holidays, Holiday{name: "Diwali", date: time.Date(2023, time.November, 23, 0, 0, 0, 0, time.Local)})
 
-	fmt.Println("holidays: ", holidays)
+	fmt.Println("holidays from heap: ", holidays)
+
+	sortedHolidays := []Holiday{}
+	for holidays.Len() > 0 {
+		sortedHolidays = append(sortedHolidays, heap.Pop(holidays).(Holiday))
+	}
+	fmt.Println("holidays sorted: ", sortedHolidays)
 }
