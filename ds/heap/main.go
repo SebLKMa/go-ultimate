@@ -60,7 +60,7 @@ func main() {
 	// Take the items out; they arrive in decreasing priority order.
 	for pq.Len() > 0 {
 		item := heap.Pop(&pq).(*priorityqueueitem.Item)
-		fmt.Printf("%.2d:%s ", item.Priority, item.Value)
+		fmt.Printf("%s:%.2d ", item.Value, item.Priority)
 	}
 	fmt.Println()
 }
