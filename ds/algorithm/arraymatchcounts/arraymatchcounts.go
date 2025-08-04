@@ -19,7 +19,7 @@ func main() {
 	input := []string{"aba", "baba", "aba", "xzxb"}
 	query := []string{"aba", "xzxb", "ab"}
 	counts := matchingCountsNotOptimised(input, query)
-	fmt.Printf("Before %v\n", input)
+	fmt.Printf("Input  %v\n", input)
 	fmt.Printf("Query  %v\n", query)
 	fmt.Printf("Counts %v\n", counts) // 2 1 0
 }
