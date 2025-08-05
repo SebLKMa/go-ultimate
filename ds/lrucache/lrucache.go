@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// TODO:
+// Least Recently Used (LRU) cache
 /*
 A Least Recently Used (LRU) cache, when implemented using a hash map,
 leverages the strengths of both data structures to achieve efficient caching.
@@ -46,28 +46,50 @@ type Node struct {
 	Data interface{} // Can hold any data type
 }
 
-func main() {
+func simualateLRUcache() {
+	maxCacheSix := 2
+
+	m := make(map[int]Node, maxCacheSix)
+
 	// Create a doublylinkedlist and put nodes in it.
 	l := list.New()
-	n1 := Node{Data: 1}
+	value := 1
+	n1 := Node{Data: value}
 	l.PushBack(n1)
-	n2 := Node{Data: 2}
+	m[value] = n1
+	value = 2
+	n2 := Node{Data: value}
 	l.PushBack(n2)
-	//n3 := Node{Data: 3}
-	//l.PushBack(n3)
+	m[value] = n2
 
 	// Iterate through list and print its contents.
 	for e := l.Front(); e != nil; e = e.Next() {
 		fmt.Println(e.Value)
 	}
+	fmt.Printf("%v\n", m)
 
-	fmt.Println("Remove")
-	e := l.Front()
-	l.Remove(e)
+	if l.Len() >= maxCacheSix {
+		fmt.Println("Remove")
+		e := l.Front()
+		n, ok := e.Value.(Node)
+		if ok {
+			delete(m, n.Data.(int))
+		}
+		l.Remove(e)
+
+		value = 3
+		n3 := Node{Data: value}
+		l.PushBack(n3)
+		m[value] = n3
+	}
 
 	// Iterate through list and print its contents.
 	for e := l.Front(); e != nil; e = e.Next() {
 		fmt.Println(e.Value)
 	}
+	fmt.Printf("%v\n", m)
+}
 
+func main() {
+	simualateLRUcache()
 }
