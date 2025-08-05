@@ -42,6 +42,9 @@ O(1) average time complexity: for get and put operations due to the hash map.
 Efficient eviction: of least recently used items using the doubly linked list, which allows for O(1) removal from the tail.
 */
 
+// TODO
+// https://leetcode.com/problems/lru-cache/description/
+
 type Node struct {
 	Data interface{} // Can hold any data type
 }
