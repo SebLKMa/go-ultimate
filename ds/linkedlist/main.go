@@ -15,6 +15,7 @@ type LinkedList struct {
 }
 
 func (l *LinkedList) Insert(newData interface{}) {
+	// Insert always insert at end
 	newNode := &Node{data: newData, next: nil}
 	if l.head == nil {
 		// empty list, just set data to head
@@ -42,6 +43,7 @@ func (l *LinkedList) Delete(index int) {
 		return
 	}
 
+	// To set previous node to point to next node
 	pos := 0
 	var previous *Node
 	current := l.head
@@ -72,6 +74,7 @@ func (l *LinkedList) Print() {
 }
 
 func (l *LinkedList) ToCircular() {
+	// Setting the last node to point to the first node
 	current := l.head
 	for current.next != nil {
 		current = current.next
@@ -84,7 +87,7 @@ func (l *LinkedList) PrintCircular() {
 	for current.next != nil {
 		if current.next == l.head {
 			// already reached starting point
-			fmt.Printf("-> %v", current.data)
+			fmt.Printf("-> %v->[%v]", current.data, current.next.data)
 			break
 		}
 		fmt.Printf("-> %v", current.data)
