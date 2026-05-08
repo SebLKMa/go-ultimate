@@ -11,21 +11,28 @@ func absInt(x int) int {
 	return x
 }
 
+// https://www.apprajapati.com/2016/06/diagonal-difference.html
 func diagonaldifference(matrix [][]int) int {
 	maxrows := len(matrix) - 1 // zero index
 	var d1, d2 int
-
+	fmt.Printf("Matrix Rows: %d\n", maxrows)
 	/*
 		[1 2 3]
 		[4 5 6]
 		[9 8 9]
+
+		d1: 1+5+9 = 15
+		d2: 3+5+9 = 17
 	*/
-	j := 0
+
+	// From left
+	j := 0 // column position
 	for i := 0; i <= maxrows; i++ {
 		d1 += matrix[i][j]
-		j++
+		j++ // next column for next row
 	}
 
+	// From right
 	j = len(matrix[0]) - 1
 	for i := 0; i <= maxrows; i++ {
 		d2 += matrix[i][j]
@@ -40,5 +47,9 @@ func diagonaldifference(matrix [][]int) int {
 func main() {
 	matrix := [][]int{{1, 2, 3}, {4, 5, 6}, {9, 8, 9}}
 	dd := diagonaldifference(matrix)
-	fmt.Println(dd)
+	fmt.Printf("Answer: %d\n", dd)
+
+	matrix = [][]int{{11, 2, 4}, {4, 5, 6}, {10, 8, -12}}
+	dd = diagonaldifference(matrix)
+	fmt.Printf("Answer: %d\n", dd)
 }
