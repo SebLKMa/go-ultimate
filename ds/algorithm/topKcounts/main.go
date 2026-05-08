@@ -58,12 +58,17 @@ func topKcounts(input []int, k int) (output []int) {
 
 func main() {
 	arr := []int{1, 1, 1, 2, 2, 3}
-	topKs := topKcounts(arr, 2)
+	k := 2
+	topKs := topKcounts(arr, k)
 	fmt.Printf("array  %v\n", arr)
-	fmt.Printf("Top Ks %v\n", topKs) // 1 2
+	fmt.Printf("Top Ks[%d] %v\n", k, topKs) // 1 2
 
 	arr = []int{1, 2, 2, 3, 3, 3}
-	topKs = topKcounts(arr, 2)
+	topKs = topKcounts(arr, k)
 	fmt.Printf("array  %v\n", arr)
-	fmt.Printf("Top Ks %v\n", topKs) // 3 2
+	fmt.Printf("Top Ks[%d] %v\n", k, topKs) // 3 2
+	k = 1
+	topKs = topKcounts(arr, k)
+	fmt.Printf("array  %v\n", arr)
+	fmt.Printf("Top Ks[%d] %v\n", k, topKs) // 3
 }
