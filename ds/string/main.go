@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 // swaps data[idxFrom] with data[idxTo]
@@ -11,18 +12,34 @@ bstr := []byte(str)
 swap(&bstr, 2, 1)
 str2 := string(bstr)
 */
-func swap(data *[]byte, idxFrom int, idxTo int) {
+func swapBytes(data *[]byte, idxFrom int, idxTo int) {
 	keep := (*data)[idxFrom]
 	(*data)[idxFrom] = (*data)[idxTo]
 	(*data)[idxTo] = keep
 }
 
-func reverse(src string) (dst string) {
+func swapChars(data *[]string, idxFrom int, idxTo int) {
+	keep := (*data)[idxFrom]
+	(*data)[idxFrom] = (*data)[idxTo]
+	(*data)[idxTo] = keep
+}
+
+func reverseByChars(src string) (dst string) {
+	chars := strings.Split(src, "")
+	max := len(chars)
+	mid := max / 2
+	for i := 0; i < mid; i++ {
+		swapChars(&chars, i, max-i-1)
+	}
+	return strings.Join(chars, "")
+}
+
+func reverseByBytes(src string) (dst string) {
 	bsrc := []byte(src)
 	max := len(bsrc)
 	mid := max / 2
 	for i := 0; i < mid; i++ {
-		swap(&bsrc, i, max-i-1)
+		swapBytes(&bsrc, i, max-i-1)
 	}
 	return string(bsrc)
 }
@@ -67,8 +84,10 @@ func main() {
 	//str := "123456"
 	str := "ahola"
 	fmt.Println(str)
-	str2 := reverse(str)
+	str2 := reverseByBytes(str)
 	fmt.Println(str2)
+	str2a := reverseByChars(str)
+	fmt.Println(str2a)
 
 	str3 := "1223345566"
 	fmt.Printf("%s len:%d\n", str3, len(str3))
