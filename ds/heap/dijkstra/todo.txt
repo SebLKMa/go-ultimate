@@ -1,3 +1,0 @@
-https://dev.to/douglasmakey/implementation-of-dijkstra-using-heap-in-go-6e3
-https://leetcode.com/discuss/post/6125318/shortest-path-in-weighted-undirected-gra-hpoa/
-123
