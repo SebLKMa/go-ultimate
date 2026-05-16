@@ -89,3 +89,18 @@ GOWORK=off go test -v ./...
 ```
 
 `GOWORK=off` is needed because this module has its own `go.mod` and is not part of the workspace.
+
+## Summary
+
+`graph.go` — the core implementation:  
+- Graph struct backed by map[int][]Edge rather than the slice-of-slices approach in ds/heap/dijkstra/. This means node IDs
+can be arbitrary integers with no need to declare a node count upfront, and AddEdge automatically registers both endpoints.  
+- Dijkstra(src) returns map[int]int — only reachable nodes appear in the result (absent = unreachable), which fits the
+map-based graph naturally.  
+- ShortestPath(src, dst) returns distance + reconstructed path, using the same lazy-deletion pattern (skip stale heap entries
+where cur.dist > dist[cur.node]).  
+
+`graph_test.go` — 6 tests covering: all distances from source, distances from a middle node, path reconstruction, src→src zero
+distance, unreachable node, and a directed graph where the shorter path routes through an intermediate node.  
+
+Run with: GOWORK=off go test -v ./... from inside ds/graph/.  
