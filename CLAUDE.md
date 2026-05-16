@@ -34,6 +34,30 @@ go test ./ds/heap/heapsort/...
 go test ./topics/go/testing/strings/...
 ```
 
+### ds/ modules with their own go.mod
+
+These packages have their own `go.mod` and are **not** part of the workspace, so the workspace must be disabled when running or testing them:
+
+```sh
+# Run / test from inside the package directory
+GOWORK=off go run main.go
+GOWORK=off go test -v ./...
+
+# Affected packages (must cd into each before running):
+#   ds/heap/
+#   ds/heap/heapint/
+#   ds/heap/heapsort/
+#   ds/heap/priorityqueueint/
+#   ds/heap/dijkstra/
+#   ds/lrucache/
+#   ds/ado/
+#   ds/linkedlistdoubly/
+#   ds/algorithm/topKcountsPqueue/
+#   ds/graph/
+```
+
+`ds/algorithm/topKcountsPqueue/` uses a `replace` directive in its `go.mod` to depend on `ds/heap/priorityqueueint` by local path — this is the established pattern for cross-`ds/` dependencies when a module needs to import another `ds/` module.
+
 ### smartcontract module
 
 All commands are `make` targets defined in `smartcontract/makefile`. Run them from the `smartcontract/` directory.
@@ -94,7 +118,11 @@ The `bank/proxy` app demonstrates the **upgradeable proxy pattern**: `Bank.sol` 
 
 ## Architecture — ds
 
-Data-structure packages in `ds/` are standalone experiments, not a shared library. Several (`heap`, `lrucache`, `heap/heapint`, `heap/heapsort`, `heap/priorityqueueint`) have their own `go.mod` and must be run/tested from inside their own directory. `ds/heap/dijkstra/` contains reference material (PDF + notes) for a Dijkstra implementation using a heap — the implementation itself is not yet written.
+Data-structure packages in `ds/` are standalone experiments, not a shared library. Many have their own `go.mod` (listed above) and must be run/tested with `GOWORK=off` from inside their own directory.
+
+**`ds/heap/dijkstra/`** — Dijkstra on a slice-based adjacency list (`Graph [][]Edge`). Exports `Dijkstra(g, src)` (all distances as `[]int`) and `ShortestPath(g, src, dst)` (distance + path). Node IDs must be contiguous integers `0…n-1`.
+
+**`ds/graph/`** — Dijkstra on a map-based adjacency list (`Graph{adj map[int][]Edge}`). Same algorithm but node IDs are arbitrary integers with no pre-declared node count. `Dijkstra(src)` returns `map[int]int` (absent = unreachable). Both packages use the same lazy-deletion trick to avoid a DecreaseKey operation.
 
 ## Prerequisites for smartcontract work
 
