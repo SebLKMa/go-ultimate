@@ -63,13 +63,13 @@ Most tests use this 5-node undirected graph:
 
 ```
 0 --1-- 1
-|       |
-4       2
-|       |
+|      /|
+4    2/ 5
+|   /   |
 2 --1-- 3 --2-- 4
 ```
 
-Numbers on edges are weights (travel costs). The shortest path from 0 to 4 is **0→1→2→3→4** with total cost **6** — even though there's a direct road from 0 to 2, the detour through 1 is cheaper overall.
+Numbers on edges are weights (travel costs). The `/` diagonal is the edge between nodes 1 and 2 (weight 2). The shortest path from 0 to 4 is **0→1→2→3→4** with total cost **6** — the direct road from 0 to 2 (weight 4) is skipped because going via node 1 first (0→1 costs 1, then 1→2 costs 2) reaches node 2 for only 3.
 
 ## What each test checks
 
