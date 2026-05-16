@@ -122,7 +122,17 @@ Data-structure packages in `ds/` are standalone experiments, not a shared librar
 
 **`ds/heap/dijkstra/`** — Dijkstra on a slice-based adjacency list (`Graph [][]Edge`). Exports `Dijkstra(g, src)` (all distances as `[]int`) and `ShortestPath(g, src, dst)` (distance + path). Node IDs must be contiguous integers `0…n-1`.
 
-**`ds/graph/`** — Dijkstra on a map-based adjacency list (`Graph{adj map[int][]Edge}`). Same algorithm but node IDs are arbitrary integers with no pre-declared node count. `Dijkstra(src)` returns `map[int]int` (absent = unreachable). Both packages use the same lazy-deletion trick to avoid a DecreaseKey operation.
+**`ds/graph/`** — Dijkstra on a map-based adjacency list (`Graph{adj map[int][]Edge}`). Same algorithm but node IDs are arbitrary integers with no pre-declared node count. `Dijkstra(src)` returns `map[int]int` (absent = unreachable). Both packages use the same lazy-deletion trick to avoid a DecreaseKey operation. The test graph has 6 edges (including a 1-2 diagonal, weight 2); the ASCII diagram in `graph_test.go` has been verified against the `AddUndirectedEdge` calls — if you add edges, update both the diagram and the edge list comment.
+
+Two bugs found and fixed in the diagram:
+
+  ┌────────────────────────┬──────────────────┬───────────────────────────────────────┬──────────────────────────────────┐
+  │          Edge          │   Old diagram    │          Code (ground truth)          │              Fixed               │
+  ├────────────────────────┼──────────────────┼───────────────────────────────────────┼──────────────────────────────────┤
+  │ 1 → 3 (right vertical) │ shows weight 2   │ AddUndirectedEdge(1, 3, 5) → weight 5 │ now shows 5                      │
+  ├────────────────────────┼──────────────────┼───────────────────────────────────────┼──────────────────────────────────┤
+  │ 1 → 2 (diagonal)       │ not shown at all │ AddUndirectedEdge(1, 2, 2) → weight 2 │ added as / diagonal with label 2 │
+  └────────────────────────┴──────────────────┴───────────────────────────────────────┴──────────────────────────────────┘
 
 ## Prerequisites for smartcontract work
 
