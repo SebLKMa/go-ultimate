@@ -8,6 +8,8 @@ import (
 )
 
 // ConsistentHashing represents the hash ring structure
+// See https://blog.algomaster.io/p/consistent-hashing-explained
+// Converted to golang via gemini code
 type ConsistentHashing struct {
 	numReplicas int
 	ring        map[string]string // Maps the string representation of big.Int hash to server string
