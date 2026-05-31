@@ -54,7 +54,7 @@ func MaxProbability(n int, edges [][]int, edges_probabilities []float64, start_n
 	return max_probabilities[end_node]
 }
 
-func main() {
+func TestMaxProbability() {
 	/*
 		Input: n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.5,0.5,0.2], start = 0, end = 2
 		Output: 0.25000
@@ -105,4 +105,13 @@ func main() {
 	max_probability = MaxProbability(3, edges, edges_probabilities, start_node, end_node)
 	fmt.Println("\nTest case 3")
 	fmt.Printf("From node %d to node %d, the highest probability is %f\n", start_node, end_node, max_probability)
+}
+
+// https://leetcode.com/problems/find-edges-in-shortest-paths/description/
+/*
+	TODO
+*/
+
+func main() {
+	TestMaxProbability()
 }
