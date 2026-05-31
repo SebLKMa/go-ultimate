@@ -72,7 +72,19 @@ func main() {
 	start_node = 0
 	end_node = 2
 	max_probability = MaxProbability(3, edges, edges_probabilities, start_node, end_node)
-	fmt.Println("\nTest case 2")
+	fmt.Println("\nTest case 2a")
+	fmt.Printf("From node %d to node %d, the highest probability is %f\n", start_node, end_node, max_probability)
+
+	/*
+		Input: n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.8,0.5,0.3], start = 0, end = 2
+		Output: 0.40000
+	*/
+	edges = [][]int{{0, 1}, {1, 2}, {0, 2}}        // array of u,v
+	edges_probabilities = []float64{0.8, 0.5, 0.3} // 0,1 probability chabged to higher probability of 0.8
+	start_node = 0
+	end_node = 2
+	max_probability = MaxProbability(3, edges, edges_probabilities, start_node, end_node)
+	fmt.Println("\nTest case 2b")
 	fmt.Printf("From node %d to node %d, the highest probability is %f\n", start_node, end_node, max_probability)
 
 	/*
