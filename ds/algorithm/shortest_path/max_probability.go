@@ -18,6 +18,12 @@ In each iteration, check each edge and update the probability of reaching the ne
 the current known probability to reach v (dist[v]), update dist[v].
 Similarly, update dist[u] if the probability of reaching u through v is greater.
 4️⃣After completing the iterations, dist[end] will contain the maximum probability of reaching the end node from the start node. If there's no path, it will remain 0.
+
+Time complexity:⏲️
+The algorithm runs in O(n×E), where n is the number of nodes and E is the number of edges.
+This is because we perform n-1 iterations over all the edges.
+Space complexity:🛰️
+The space complexity is O(n) since we are using an array dist of size n to store the maximum probability for each node.
 */
 
 func MaxProbability(n int, edges [][]int, edges_probabilities []float64, start_node int, end_node int) float64 {
