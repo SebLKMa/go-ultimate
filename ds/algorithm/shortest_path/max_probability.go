@@ -30,8 +30,6 @@ func MaxProbability(n int, edges [][]int, edges_probabilities []float64, start_n
 	max_probabilities := make([]float64, n)
 	max_probabilities[start_node] = 1.0
 
-	//fmt.Printf("edges %v\n", edges)
-
 	for i := 0; i < n-1; i++ {
 		updated := false
 		for j := 0; j < len(edges); j++ {
@@ -41,14 +39,16 @@ func MaxProbability(n int, edges [][]int, edges_probabilities []float64, start_n
 			fmt.Printf("u:%d, v:%d\n", u, v)
 			fmt.Printf("probability: %f\n", probability)
 
+			fmt.Printf("max_probabilities[u]: %f\n", max_probabilities[u])
+			fmt.Printf("max_probabilities[v]: %f\n", max_probabilities[v])
 			if max_probabilities[u]*probability > max_probabilities[v] {
 				max_probabilities[v] = max_probabilities[u] * probability
-				fmt.Printf("max_probabilities[v]: %f\n", max_probabilities[v])
+				fmt.Printf("updated max_probabilities[v]: %f\n", max_probabilities[v])
 				updated = true
 			}
 			if max_probabilities[v]*probability > max_probabilities[u] {
 				max_probabilities[u] = max_probabilities[v] * probability
-				fmt.Printf("max_probabilities[u]: %f\n", max_probabilities[u])
+				fmt.Printf("updated max_probabilities[u]: %f\n", max_probabilities[u])
 				updated = true
 			}
 			fmt.Printf("updated:%v\n", updated)
@@ -69,50 +69,55 @@ func TestMaxProbability() {
 		Explanation: There are two paths from start to end, one having a probability of success = 0.2 and
 		the other has 0.5 * 0.5 = 0.25.
 	*/
+	fmt.Println("\n\nTest case 1")
 	edges := [][]int{{0, 1}, {1, 2}, {0, 2}}        // array of u,v
 	edges_probabilities := []float64{0.5, 0.5, 0.2} // corresponding u,v probabilities
 	start_node := 0
 	end_node := 2
 	max_probability := MaxProbability(3, edges, edges_probabilities, start_node, end_node)
-	fmt.Println("\nTest case 1")
 	fmt.Printf("From node %d to node %d, the highest probability is %f\n", start_node, end_node, max_probability)
-
+	fmt.Println("===============================================================")
+	fmt.Println()
 	/*
 		Input: n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.5,0.5,0.3], start = 0, end = 2
 		Output: 0.30000
 	*/
+	fmt.Println("\n\nTest case 2a")
 	edges = [][]int{{0, 1}, {1, 2}, {0, 2}}        // array of u,v
 	edges_probabilities = []float64{0.5, 0.5, 0.3} // corresponding u,v probabilities
 	start_node = 0
 	end_node = 2
 	max_probability = MaxProbability(3, edges, edges_probabilities, start_node, end_node)
-	fmt.Println("\nTest case 2a")
 	fmt.Printf("From node %d to node %d, the highest probability is %f\n", start_node, end_node, max_probability)
-
+	fmt.Println("===============================================================")
+	fmt.Println()
 	/*
 		Input: n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.8,0.5,0.3], start = 0, end = 2
 		Output: 0.40000
 	*/
+	fmt.Println("\n\nTest case 2b")
 	edges = [][]int{{0, 1}, {1, 2}, {0, 2}}        // array of u,v
 	edges_probabilities = []float64{0.8, 0.5, 0.3} // 0,1 probability chabged to higher probability of 0.8
 	start_node = 0
 	end_node = 2
 	max_probability = MaxProbability(3, edges, edges_probabilities, start_node, end_node)
-	fmt.Println("\nTest case 2b")
 	fmt.Printf("From node %d to node %d, the highest probability is %f\n", start_node, end_node, max_probability)
-
+	fmt.Println("===============================================================")
+	fmt.Println()
 	/*
 		Input: n = 3, edges = [[0,1]], succProb = [0.5], start = 0, end = 2
 		Output: 0.00000
 		Explanation: There is no path between 0 and 2.
 	*/
+	fmt.Println("\n\nTest case 3")
 	edges = [][]int{{0, 1}}              // array of u,v
 	edges_probabilities = []float64{0.5} // corresponding u,v probabilities
 	start_node = 0
 	end_node = 2
 	max_probability = MaxProbability(3, edges, edges_probabilities, start_node, end_node)
-	fmt.Println("\nTest case 3")
 	fmt.Printf("From node %d to node %d, the highest probability is %f\n", start_node, end_node, max_probability)
+	fmt.Println("===============================================================")
+	fmt.Println()
 }
 
 // https://leetcode.com/problems/find-edges-in-shortest-paths/description/
