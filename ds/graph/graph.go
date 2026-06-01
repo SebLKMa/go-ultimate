@@ -6,7 +6,7 @@ import (
 )
 
 // Inf is the sentinel distance for unreachable nodes.
-const Inf = math.MaxInt
+const Infinite = math.MaxInt
 
 // Edge is a weighted directed edge.
 type Edge struct {
@@ -29,6 +29,7 @@ func New() *Graph {
 // Adding an edge automatically registers both endpoints in the graph.
 func (g *Graph) AddEdge(from, to, weight int) {
 	g.adj[from] = append(g.adj[from], Edge{To: to, Weight: weight})
+	// Adds 'to' if it does not exist, with no adjacent node yet.
 	if _, ok := g.adj[to]; !ok {
 		g.adj[to] = nil
 	}
@@ -36,8 +37,8 @@ func (g *Graph) AddEdge(from, to, weight int) {
 
 // AddUndirectedEdge adds edges in both directions.
 func (g *Graph) AddUndirectedEdge(u, v, weight int) {
-	g.AddEdge(u, v, weight)
-	g.AddEdge(v, u, weight)
+	g.AddEdge(u, v, weight) // u to v with weight
+	g.AddEdge(v, u, weight) // v to u with same weight
 }
 
 // item is a min-heap entry: (node, accumulated distance from source).
@@ -47,14 +48,14 @@ type item struct {
 
 type minHeap []item
 
-func (h minHeap) Len() int            { return len(h) }
+func (h minHeap) Len() int           { return len(h) }
 func (h minHeap) Less(i, j int) bool { return h[i].dist < h[j].dist }
 func (h minHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
-func (h *minHeap) Push(x any)        { *h = append(*h, x.(item)) }
+func (h *minHeap) Push(x any)        { *h = append(*h, x.(item)) } // "cast" any to item
 func (h *minHeap) Pop() any {
 	old := *h
 	n := len(old)
-	x := old[n-1]
+	x := old[n-1] // zero index
 	*h = old[:n-1]
 	return x
 }
@@ -95,7 +96,7 @@ func (g *Graph) Dijkstra(src int) map[int]int {
 }
 
 // ShortestPath returns the distance and node sequence of the shortest path
-// from src to dst. Returns Inf and nil when dst is unreachable.
+// from src to dst. Returns Infinite and nil when dst is unreachable.
 func (g *Graph) ShortestPath(src, dst int) (int, []int) {
 	dist := map[int]int{src: 0}
 	// prev records, for each node, which node led to it on the cheapest route.
@@ -128,7 +129,7 @@ func (g *Graph) ShortestPath(src, dst int) (int, []int) {
 
 	d, reachable := dist[dst]
 	if !reachable {
-		return Inf, nil
+		return Infinite, nil
 	}
 
 	// Trace backwards from dst to src using the prev breadcrumbs,

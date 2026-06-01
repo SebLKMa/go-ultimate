@@ -74,7 +74,7 @@ func TestShortestPathUnreachable(t *testing.T) {
 	g := graph.New()
 	g.AddEdge(0, 1, 5)
 	dist, path := g.ShortestPath(1, 0)
-	if dist != graph.Inf {
+	if dist != graph.Infinite {
 		t.Errorf("expected Inf for unreachable node, got %d", dist)
 	}
 	if path != nil {
