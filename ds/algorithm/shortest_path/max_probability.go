@@ -30,27 +30,35 @@ func MaxProbability(n int, edges [][]int, edges_probabilities []float64, start_n
 	max_probabilities := make([]float64, n)
 	max_probabilities[start_node] = 1.0
 
+	//fmt.Printf("edges %v\n", edges)
+
 	for i := 0; i < n-1; i++ {
 		updated := false
 		for j := 0; j < len(edges); j++ {
 			u := edges[j][0]
 			v := edges[j][1]
 			probability := edges_probabilities[j]
+			fmt.Printf("u:%d, v:%d\n", u, v)
+			fmt.Printf("probability: %f\n", probability)
 
 			if max_probabilities[u]*probability > max_probabilities[v] {
 				max_probabilities[v] = max_probabilities[u] * probability
+				fmt.Printf("max_probabilities[v]: %f\n", max_probabilities[v])
 				updated = true
 			}
 			if max_probabilities[v]*probability > max_probabilities[u] {
 				max_probabilities[u] = max_probabilities[v] * probability
+				fmt.Printf("max_probabilities[u]: %f\n", max_probabilities[u])
 				updated = true
 			}
+			fmt.Printf("updated:%v\n", updated)
 			if !updated {
 				break
 			}
 		}
 	}
 
+	fmt.Printf("max_probabilities[end_node] %f\n", max_probabilities[end_node])
 	return max_probabilities[end_node]
 }
 
