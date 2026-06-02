@@ -113,8 +113,10 @@ func (g *Graph) ShortestPath(src, dst int) (int, []int) {
 	heap.Init(h)
 
 	for h.Len() > 0 {
+		fmt.Printf("h.Len: %d\n", h.Len())
 		// Always process the node with the smallest known distance first.
 		cur := heap.Pop(h).(item)
+		fmt.Printf("cur: %v\n", cur)
 
 		// Stale entry — a shorter path was already settled, skip.
 		if cur.dist > dist[cur.node] {
@@ -131,7 +133,9 @@ func (g *Graph) ShortestPath(src, dst int) (int, []int) {
 				heap.Push(h, item{node: e.To, dist: d})
 			}
 		}
+		fmt.Printf("dist: %v\n", dist)
 	}
+	fmt.Printf("prev: %v\n", prev)
 
 	d, reachable := dist[dst]
 	if !reachable {

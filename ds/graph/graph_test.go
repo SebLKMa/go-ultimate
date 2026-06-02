@@ -48,7 +48,7 @@ func TestDijkstraFromMiddleNode(t *testing.T) {
 
 // To run just this test,
 // GOWORK=off go test -v -run TestShortestPath
-func TestShortestPath(t *testing.T) {
+func TestShortestPathDebug(t *testing.T) {
 	g := buildGraph()
 	g.Print()
 	dist, path := g.ShortestPath(0, 4)
