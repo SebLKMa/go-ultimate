@@ -2,6 +2,7 @@ package graph
 
 import (
 	"container/heap"
+	"fmt"
 	"math"
 )
 
@@ -23,6 +24,11 @@ type Graph struct {
 // New returns an empty Graph.
 func New() *Graph {
 	return &Graph{adj: make(map[int][]Edge)}
+}
+
+func (g *Graph) Print() {
+	fmt.Println("Graph: map{src: [dst weight] [dst weight] ...}")
+	fmt.Printf("%v\n", g)
 }
 
 // AddEdge adds a directed edge from → to with the given weight.
