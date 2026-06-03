@@ -1,5 +1,12 @@
 # Graph — Dijkstra's Shortest Path
 
+These youtube videos have good visual explanations.  
+https://www.youtube.com/watch?v=pVfj6mxhdMw  
+https://www.youtube.com/watch?v=bZkzH5x0SKU  
+https://www.youtube.com/watch?v=EFg3u_E6eHU  
+https://www.youtube.com/watch?v=CmIQ29cUGiE  
+
+
 ## What is a graph?
 
 Think of a graph as a map of cities connected by roads. Each city is a **node** and each road is an **edge**. Roads can have a **weight** — the distance or cost to travel along them.

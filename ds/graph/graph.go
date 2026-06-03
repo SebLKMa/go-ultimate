@@ -66,6 +66,7 @@ func (h *minHeap) Pop() any {
 	return x
 }
 
+// See: https://www.youtube.com/watch?v=pVfj6mxhdMw
 // Dijkstra returns the shortest distance from src to every reachable node.
 // Unreachable nodes are absent from the returned map.
 func (g *Graph) Dijkstra(src int) map[int]int {
@@ -101,6 +102,7 @@ func (g *Graph) Dijkstra(src int) map[int]int {
 	return dist
 }
 
+// See: https://www.youtube.com/watch?v=pVfj6mxhdMw
 // ShortestPath returns the distance and node sequence of the shortest path
 // from src to dst. Returns Infinite and nil when dst is unreachable.
 func (g *Graph) ShortestPath(src, dst int) (int, []int) {
@@ -113,7 +115,8 @@ func (g *Graph) ShortestPath(src, dst int) (int, []int) {
 	heap.Init(h)
 
 	for h.Len() > 0 {
-		fmt.Printf("h.Len: %d\n", h.Len())
+
+		// minHeap Pop returns the smallest distance.
 		// Always process the node with the smallest known distance first.
 		cur := heap.Pop(h).(item)
 		fmt.Printf("cur: %v\n", cur)
@@ -134,6 +137,8 @@ func (g *Graph) ShortestPath(src, dst int) (int, []int) {
 			}
 		}
 		fmt.Printf("dist: %v\n", dist)
+		fmt.Printf("prev: %v\n", prev)
+		fmt.Printf("h.Len:%d h:%v\n", h.Len(), h)
 	}
 	fmt.Printf("prev: %v\n", prev)
 
