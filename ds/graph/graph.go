@@ -52,6 +52,7 @@ type item struct {
 	node, dist int
 }
 
+// See: https://pkg.go.dev/container/heap
 type minHeap []item
 
 func (h minHeap) Len() int           { return len(h) }
