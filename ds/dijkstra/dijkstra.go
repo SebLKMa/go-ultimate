@@ -69,7 +69,9 @@ func (h *minHeap) Pop() any {
 	return x
 }
 
-// See: https://www.youtube.com/watch?v=pVfj6mxhdMw
+// See: 
+//    https://www.youtube.com/watch?v=pVfj6mxhdMw
+//    https://youtu.be/j0OUwduDOS0?si=iPaI4WlMOVpjgMdG
 // Dijkstra returns the shortest distance from src to every reachable node.
 // Unreachable nodes are absent from the returned map.
 func (g *Graph) Dijkstra(src string) map[string]int {
@@ -105,7 +107,9 @@ func (g *Graph) Dijkstra(src string) map[string]int {
 	return dist
 }
 
-// See: https://www.youtube.com/watch?v=pVfj6mxhdMw
+// See: 
+//    https://www.youtube.com/watch?v=pVfj6mxhdMw
+//    https://youtu.be/j0OUwduDOS0?si=iPaI4WlMOVpjgMdG
 // ShortestPath returns the distance and node sequence of the shortest path
 // from src to dst. Returns Infinite and nil when dst is unreachable.
 func (g *Graph) ShortestPath(src, dst string) (int, []string) {
