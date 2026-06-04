@@ -1,6 +1,7 @@
 # Graph — Dijkstra's Shortest Path
 
 These youtube videos have good visual explanations.  
+https://youtu.be/j0OUwduDOS0?si=iPaI4WlMOVpjgMdG  
 https://www.youtube.com/watch?v=pVfj6mxhdMw  
 https://www.youtube.com/watch?v=bZkzH5x0SKU  
 https://www.youtube.com/watch?v=EFg3u_E6eHU  
